@@ -1,0 +1,8 @@
+Vendedor_ID,Vendedor_Nombre,Fecha_Contratacion,Puesto,Salario_Base_Mensual,ID_Tienda,Tienda_Sucursal,Tienda_Region,Superficie_M2_Tienda,Nombre_Gerente_Regional,Color_Uniforme_Vendedor
+VEND-001,Juan Perez,12/01/2023,Asesor Comercial,1200,TIEN-01,Suc_Centro,CENTRO,350,Esteban Quito,Azul Marino
+VEND-002,Maria Gomez,15/05/2022,Asesor Comercial,1250,TIEN-02,Suc_Norte,norte,280,Esteban Quito,Azul Marino
+VEND-003,Carlos Diaz,01/10/2021,Asesor Senior,1400,TIEN-03,Suc_Sur,SUR,410,Monica Galindo,Rojo
+VEND-004,Ana Lopez,18/08/2024,Asesor Comercial,1200,TIEN-01,Suc_Centro,CENTRO,350,Esteban Quito,Azul Marino
+VEND-005,Luis Torres,05/03/2023,Asesor Comercial,1200,TIEN-03,Suc_Sur,SUR,410,Monica Galindo,Rojo
+VEND-006,Sofia Castro,10/11/2024,Asesor Comercial,1200,TIEN-04,Suc_Este,Este,190,Monica Galindo,Gris
+VEND-007,Pedro Ramirez,22/02/2022,Asesor Senior,1400,TIEN-05,Suc_Oeste,Oeste,220,Esteban Quito,Gris
