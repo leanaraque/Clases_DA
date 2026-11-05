@@ -1,6 +1,6 @@
 let
     // ── 1) ORIGEN: la tabla de ventas de donde salen las fechas ──────────────
-    Origen = #"Ordenes de Compra",
+    Origen = #"ordenesDeCompra",
 
     // ── 2) RANGO: primera y última venta, extendidas a años completos ───────
     FechaMin    = List.Min(Origen[Fecha de orden]),
