@@ -1,0 +1,32 @@
+let
+    // ── 1) ORIGEN: la tabla de ventas de donde salen las fechas ──────────────
+    Origen = #"Ordenes de Compra",
+
+    // ── 2) RANGO: primera y última venta, extendidas a años completos ───────
+    FechaMin    = List.Min(Origen[Fecha de orden]),
+    FechaMax    = List.Max(Origen[Fecha de orden]),
+    FechaInicio = #date(Date.Year(FechaMin), 1, 1),     // 1 de enero del primer año
+    FechaFin    = #date(Date.Year(FechaMax), 12, 31),   // 31 de diciembre del último año
+
+    // ── 3) LISTA DE DÍAS: el "+ 1" incluye el último día ────────────────────
+    CantidadDias = Duration.Days(FechaFin - FechaInicio) + 1,
+    ListaFechas  = List.Dates(FechaInicio, CantidadDias, #duration(1, 0, 0, 0)),
+
+    // ── 4) CONVERTIR la lista en tabla con una columna "Fecha" ──────────────
+    Tabla = Table.FromList(ListaFechas, Splitter.SplitByNothing(), type table [Fecha = date]),
+
+    // ── 5) COLUMNAS: las mismas que ya usas + algunas útiles ────────────────
+    Idioma = "es-MX",
+
+    AgregarAño        = Table.AddColumn(Tabla,            "Año",              each Date.Year([Fecha]), Int64.Type),
+    AgregarTrimestre  = Table.AddColumn(AgregarAño,       "Trimestre",        each "T" & Text.From(Date.QuarterOfYear([Fecha])), type text),
+    AgregarMesNumero  = Table.AddColumn(AgregarTrimestre, "Mes (Número)",     each Date.Month([Fecha]), Int64.Type),
+    AgregarMesLetra   = Table.AddColumn(AgregarMesNumero, "Mes (Letra)",      each Date.ToText([Fecha], [Format = "MMMM", Culture = Idioma]), type text),
+    AgregarMesAbrev   = Table.AddColumn(AgregarMesLetra,  "Mes (Abreviado)",  each Date.ToText([Fecha], [Format = "MMM", Culture = Idioma]), type text),
+    AgregarAñoMes     = Table.AddColumn(AgregarMesAbrev,  "Año-Mes",          each Date.ToText([Fecha], [Format = "yyyy-MM"]), type text),
+    AgregarSemana     = Table.AddColumn(AgregarAñoMes,    "Semana",           each Date.WeekOfYear([Fecha], Day.Monday), Int64.Type),
+    AgregarDia        = Table.AddColumn(AgregarSemana,    "Día",              each Date.Day([Fecha]), Int64.Type),
+    AgregarDiaSemNum  = Table.AddColumn(AgregarDia,       "Día Semana (Número)", each Date.DayOfWeek([Fecha], Day.Monday) + 1, Int64.Type),
+    AgregarDiaSemana  = Table.AddColumn(AgregarDiaSemNum, "Día Semana",       each Date.DayOfWeekName([Fecha], Idioma), type text)
+in
+    AgregarDiaSemana
